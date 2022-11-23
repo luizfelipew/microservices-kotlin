@@ -1,9 +1,9 @@
 package br.com.wendt
 
+import br.com.wendt.exceptions.UnsupportedMathOperationException
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.concurrent.atomic.AtomicLong
 
 @RestController
 class MathController {
@@ -13,7 +13,8 @@ class MathController {
         @PathVariable(value = "numberOne") numberOne: String?,
         @PathVariable(value = "numberOne") numberTwo: String?
     ): Double {
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) throw Exception()
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw UnsupportedMathOperationException("Please set a numeric value!")
         return convertToDouble(numberOne) + convertToDouble(numberTwo)
     }
 
